@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "version": "Agent_V2_Optimized",
+    "total": 50,
+    "passed": 50,
+    "failed": 0,
+    "pass_rate": 1.0,
+    "timestamp": "2026-06-16 23:29:11",
+    "total_benchmark_time_sec": 2.61
+  },
+  "metrics": {
+    "avg_score": 4.814,
+    "avg_faithfulness": 0.417,
+    "avg_relevancy": 0.793,
+    "hit_rate": 0.9,
+    "mrr": 0.85,
+    "agreement_rate": 0.994,
+    "avg_latency_sec": 0.0621
+  },
+  "regression": {
+    "decision": "APPROVE",
+    "delta_score": 0.0,
+    "delta_hit_rate": 0.0,
+    "delta_latency": -0.0,
+    "reasons": [
+      "Quality: +0.000 | Hit Rate: +0.000 | Latency: -0.000s"
+    ]
+  },
+  "cost_report": {
+    "total_input_tokens": 50442,
+    "total_output_tokens": 20418,
+    "total_api_calls": 100,
+    "total_cost_usd": 0.330285,
+    "cost_per_eval_usd": 0.003303,
+    "optimized_cost_usd": 0.144004,
+    "estimated_savings_pct": 56.4
+  }
+}

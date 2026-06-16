@@ -220,6 +220,8 @@ async def run_benchmark_with_results(
 
     print(f"\n🚀 Khởi động Benchmark cho {agent_version}...")
 
+    random.seed(2026)
+
     if not os.path.exists("data/golden_set.jsonl"):
         print("❌ Thiếu data/golden_set.jsonl. Hãy chạy 'python data/synthetic_gen.py' trước.")
         return None, None
@@ -314,14 +316,14 @@ def evaluate_release_gate(v1_summary: Dict, v2_summary: Dict) -> Dict:
 
     reasons = []
     if not quality_improved:
-        reasons.append(f"❌ Quality giảm: delta_score={delta_score:+.3f}")
+        reasons.append(f"Quality decreased: delta_score={delta_score:+.3f}")
     if not retrieval_not_degraded:
-        reasons.append(f"❌ Hit Rate giảm quá mức: delta={delta_hit_rate:+.3f}")
+        reasons.append(f"Hit Rate decreased too much: delta={delta_hit_rate:+.3f}")
     if not latency_acceptable:
-        reasons.append(f"❌ Latency tăng quá mức: delta={delta_latency:+.3f}s")
+        reasons.append(f"Latency increased too much: delta={delta_latency:+.3f}s")
 
     if decision == "APPROVE":
-        reasons.append(f"✅ Quality: {delta_score:+.3f} | Hit Rate: {delta_hit_rate:+.3f} | Latency: {delta_latency:+.3f}s")
+        reasons.append(f"Quality: {delta_score:+.3f} | Hit Rate: {delta_hit_rate:+.3f} | Latency: {delta_latency:+.3f}s")
 
     return {
         "decision": decision,
@@ -336,6 +338,11 @@ def evaluate_release_gate(v1_summary: Dict, v2_summary: Dict) -> Dict:
 # main()
 # ===================================================================
 async def main():
+    import sys
+    if sys.stdout.encoding and sys.stdout.encoding.lower() not in ("utf-8", "utf8"):
+        import io
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+
     print("=" * 60)
     print("  🏭  AI EVALUATION FACTORY - BENCHMARK RUNNER  ")
     print("=" * 60)
